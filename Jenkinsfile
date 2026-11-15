@@ -2,10 +2,6 @@
 pipeline {
     agent any
 
-    environment {
-        PATH+NODE = 'C:\\Program Files\\nodejs'
-    }
-
     options {
         timestamps()
     }
@@ -18,28 +14,19 @@ pipeline {
             }
         }
 
-        stage('Verify Node and npm') {
+        stage('Install and Run Playwright') {
             steps {
-                bat 'node --version'
-                bat 'npm --version'
-            }
-        }
+                withEnv(['PATH+NODE=C:\\Program Files\\nodejs']) {
 
-        stage('Install Dependencies') {
-            steps {
-                bat 'npm ci'
-            }
-        }
+                    bat 'node --version'
+                    bat 'npm --version'
 
-        stage('Install Playwright Browsers') {
-            steps {
-                bat 'npx playwright install chromium'
-            }
-        }
+                    bat 'npm ci'
 
-        stage('Run Playwright Tests') {
-            steps {
-                bat 'npx playwright test'
+                    bat 'npx playwright install chromium'
+
+                    bat 'npx playwright test'
+                }
             }
         }
     }
