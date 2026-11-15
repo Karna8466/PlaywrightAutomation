@@ -1,8 +1,8 @@
 
 pipeline {
     agent any
-    tools {
-        nodejs 'NodeJS'
+    environment {
+        PATH+NODE = 'C:\\Program Files\\nodejs'
     }
 
     options {
