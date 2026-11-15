@@ -1,6 +1,7 @@
 
 pipeline {
     agent any
+
     environment {
         PATH+NODE = 'C:\\Program Files\\nodejs'
     }
@@ -17,10 +18,15 @@ pipeline {
             }
         }
 
-        stage('Install Dependencies') {
+        stage('Verify Node and npm') {
             steps {
                 bat 'node --version'
                 bat 'npm --version'
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
                 bat 'npm ci'
             }
         }
@@ -40,8 +46,10 @@ pipeline {
 
     post {
         always {
-            archiveArtifacts artifacts: 'playwright-report/**, test-results/**',
-                             allowEmptyArchive: true
+            archiveArtifacts(
+                artifacts: 'playwright-report/**, test-results/**',
+                allowEmptyArchive: true
+            )
         }
 
         success {
@@ -49,7 +57,7 @@ pipeline {
         }
 
         failure {
-            echo 'Playwright test execution failed. Check the console output.'
+            echo 'Playwright execution failed. Check console output.'
         }
     }
 }
