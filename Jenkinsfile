@@ -50,8 +50,8 @@ pipeline {
                     withCredentials([
                         usernamePassword(
                             credentialsId: 'amazon-login',
-                            usernameVariable: 'EMAIL',
-                            passwordVariable: 'PASSWORD'
+                            usernameVariable: 'AMAZON_EMAIL',
+                            passwordVariable: 'AMAZON_PASSWORD'
                         )
                     ]) {
                         bat 'npx playwright test'
