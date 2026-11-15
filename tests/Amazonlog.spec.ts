@@ -37,7 +37,7 @@ test('login to app', async ({ page }) => {
 //    await page.locator('#nav-search-submit-button').click();
 //    await page.getByRole('button', {name: 'Add to cart'}).first().click();
     const Cpage = new AddtoCartPage(page)
-    await Cpage.Addcart("iphone 16");
+    await Cpage.Addcart("apple watch 11");
     await page.getByText('Go to Cart').click();
     await page.getByRole('button', {name: 'Proceed to Buy'}).click();
     //await page.getByText('Cart').click();
